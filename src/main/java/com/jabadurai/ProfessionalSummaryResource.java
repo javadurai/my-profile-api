@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,17 +35,20 @@ public class ProfessionalSummaryResource {
 	}
 	
 	@PostMapping
+	@Secured("ROLE_ADMIN")
 	ProfessionalSummary create(@RequestBody ProfessionalSummary summary) {
+		log.info(summary);
 		return repository.save(summary);
 	}
 	
 	@PutMapping
+	@Secured("ROLE_ADMIN")
 	void update(@RequestBody ProfessionalSummary summary) {
-		log.info(summary);
 		repository.save(summary);
 	}
 	
 	@DeleteMapping
+	@Secured("ROLE_ADMIN")
 	void delete(@RequestBody ProfessionalSummary summary) {
 		repository.delete(summary);
 	}
